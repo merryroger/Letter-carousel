@@ -1,5 +1,11 @@
+const container = document.querySelector(".carousel");
 const carouselElements = document.querySelectorAll(".carousel-element");
 let pointer = 0;
+const sizes = {
+  width: 0,
+  height: 0
+};
+
 const transitionFunctions = [
   "ease",
   "ease-in-out",
@@ -8,7 +14,7 @@ const transitionFunctions = [
 
 const initCarousel = () => {
   let initStyle = "";
-  if (!carouselElements) return;
+  if (!container || !carouselElements) return;
   carouselElements.forEach((element, index) => {
     if (element.classList.contains("next-element")) {
       element.classList.add("hidden");
@@ -19,7 +25,7 @@ const initCarousel = () => {
     }
     convertElement(element, initStyle);
   });
-
+  setContainerSize();
   setTimeout(() => fadeElement(carouselElements[pointer]), 50);
 }
 
@@ -39,7 +45,9 @@ const raiseElement = (current) => {
 
 const affectNextElement = (e) => {
   if (e.target.classList.contains('tofade')) {
-    carouselElements[pointer].classList.add("hidden");
+    const previous = carouselElements[pointer];
+    previous.classList.add("hidden");
+
     pointer++;
     if (pointer >= carouselElements.length) pointer = 0;
     const current = carouselElements[pointer];
@@ -53,6 +61,8 @@ const affectNextElement = (e) => {
 const convertElement = (element, transClass) => {
   let delay = 0.0;
   let lastElement = null;
+
+  checkElementSize(element);
   const letters = [...element.textContent];
   element.textContent = "";
   letters.forEach(letter => {
@@ -65,6 +75,16 @@ const convertElement = (element, transClass) => {
     lastElement = letterGhost;
   });
   lastElement.addEventListener("transitionend", e => affectNextElement(e));
+}
+
+const checkElementSize = (element) => {
+  sizes.width = (element.offsetWidth > sizes.width) ? element.offsetWidth : sizes.width;
+  sizes.height = (element.offsetHeight > sizes.height) ? element.offsetHeight : sizes.height;
+}
+
+const setContainerSize = () => {
+  container.style.width = `${sizes.width}px`;
+  container.style.height = `${sizes.height}px`;
 }
 
 initCarousel();
