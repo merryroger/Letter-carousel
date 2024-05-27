@@ -1,5 +1,5 @@
 # Letter-carousel
-##Implementation of the letter-by-letter text change effect
+## Implementation of the letter-by-letter text change effect
 
 ### ver. 0.1.1
 The second effect has been added.
