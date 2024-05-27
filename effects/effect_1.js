@@ -1,20 +1,30 @@
-const container = document.querySelector(".carousel.effect1");
-const carouselElements = document.querySelectorAll(".effect1 .carousel-element");
+let container = null;
+let carouselElements = [];
 let pointer = 0;
-const nextLetterStepDelay = 0.2; /* sec */
-const letterTransitionDuration = 0.25; /* sec */
+let nextLetterStepDelay = 0.2; /* sec */
+let letterTransitionDuration = 0.25; /* sec */
+let transitionFunction = "ease";
 const sizes = {
   width: 0,
   height: 0
 };
 
-const transitionFunctions = [
-  "ease",
-  "ease-in-out",
-  "cubic-bezier(0.2, -2, 0.8, 2)",
-];
+const setUp = (settings) => {
+  container = settings.container;
+  carouselElements = settings.carouselElements;
+  nextLetterStepDelay = (settings.nextLetterStepDelay)
+    ? settings.nextLetterStepDelay
+    : nextLetterStepDelay;
+  letterTransitionDuration = (settings.letterTransitionDuration)
+    ? settings.letterTransitionDuration
+    : letterTransitionDuration;
+  transitionFunction = (settings.transitionFunction)
+    ? settings.transitionFunction
+    : transitionFunction;
+}
 
-const initCarousel = () => {
+const initCarousel = (settings) => {
+  setUp(settings);
   let initStyle = "";
   if (!container || !carouselElements) return;
   carouselElements.forEach((element, index) => {
@@ -72,7 +82,7 @@ const convertElement = (element, transClass) => {
     letterGhost.className = `letter ${transClass}`;
     letterGhost.innerHTML = letter;
     element.appendChild(letterGhost);
-    letterGhost.style.setProperty("transition", `transform ${letterTransitionDuration}s ${transitionFunctions[1]} ${delay}s`);
+    letterGhost.style.setProperty("transition", `transform ${letterTransitionDuration}s ${transitionFunction} ${delay}s`);
     delay += nextLetterStepDelay;
     lastElement = letterGhost;
   });
