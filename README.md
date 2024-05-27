@@ -3,7 +3,7 @@
 
 ### ver. 0.2.0
 The project has been rebuilt.
-The effects processing modules now began to accept the installation parameters.
+The effects processing modules now began to accept the setup parameters.
 
 2024-05-27
 
