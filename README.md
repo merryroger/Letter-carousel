@@ -1,6 +1,8 @@
 # Letter-carousel
 ## Implementation of the letter-by-letter text change effect
 
+### The demo page should be launched via the web server.
+
 ### ver. 0.2.0
 The project has been rebuilt.
 The effects processing modules now began to accept the setup parameters.
